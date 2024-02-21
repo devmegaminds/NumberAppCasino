@@ -36,28 +36,32 @@ namespace Numberapp
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnUploadImage = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.btnUploadCSVFile = new System.Windows.Forms.Button();
+            this.btnUpdateSheet1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.panel1.Controls.Add(this.btnBlankSheet);
-            this.panel1.Location = new System.Drawing.Point(47, 12);
+            this.panel1.Location = new System.Drawing.Point(61, 54);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1405, 77);
+            this.panel1.Size = new System.Drawing.Size(1405, 95);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // btnBlankSheet
             // 
-            this.btnBlankSheet.Location = new System.Drawing.Point(1259, 37);
+            this.btnBlankSheet.Location = new System.Drawing.Point(1260, 30);
             this.btnBlankSheet.Name = "btnBlankSheet";
             this.btnBlankSheet.Size = new System.Drawing.Size(100, 23);
             this.btnBlankSheet.TabIndex = 0;
-            this.btnBlankSheet.Text = "Sheet1";
+            this.btnBlankSheet.Text = "Sheet";
             this.btnBlankSheet.UseVisualStyleBackColor = true;
             this.btnBlankSheet.Click += new System.EventHandler(this.btnBlankSheet_Click);
             // 
@@ -69,12 +73,12 @@ namespace Numberapp
             this.panel2.Controls.Add(this.btnUploadImage);
             this.panel2.Location = new System.Drawing.Point(61, 187);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1405, 495);
+            this.panel2.Size = new System.Drawing.Size(1405, 244);
             this.panel2.TabIndex = 1;
             // 
             // btnProcess
             // 
-            this.btnProcess.Location = new System.Drawing.Point(651, 448);
+            this.btnProcess.Location = new System.Drawing.Point(618, 190);
             this.btnProcess.Name = "btnProcess";
             this.btnProcess.Size = new System.Drawing.Size(100, 23);
             this.btnProcess.TabIndex = 2;
@@ -86,7 +90,7 @@ namespace Numberapp
             // 
             this.pictureBox1.Location = new System.Drawing.Point(357, 29);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1034, 413);
+            this.pictureBox1.Size = new System.Drawing.Size(562, 138);
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
@@ -104,11 +108,43 @@ namespace Numberapp
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.panel3.Controls.Add(this.btnUploadCSVFile);
+            this.panel3.Controls.Add(this.btnUpdateSheet1);
+            this.panel3.Location = new System.Drawing.Point(61, 460);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(1405, 158);
+            this.panel3.TabIndex = 2;
+            // 
+            // btnUploadCSVFile
+            // 
+            this.btnUploadCSVFile.Location = new System.Drawing.Point(357, 77);
+            this.btnUploadCSVFile.Name = "btnUploadCSVFile";
+            this.btnUploadCSVFile.Size = new System.Drawing.Size(100, 23);
+            this.btnUploadCSVFile.TabIndex = 1;
+            this.btnUploadCSVFile.Text = "UploadCSVFile";
+            this.btnUploadCSVFile.UseVisualStyleBackColor = true;
+            this.btnUploadCSVFile.Click += new System.EventHandler(this.btnUploadCSVFile_Click);
+            // 
+            // btnUpdateSheet1
+            // 
+            this.btnUpdateSheet1.Location = new System.Drawing.Point(819, 77);
+            this.btnUpdateSheet1.Name = "btnUpdateSheet1";
+            this.btnUpdateSheet1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.btnUpdateSheet1.Size = new System.Drawing.Size(100, 23);
+            this.btnUpdateSheet1.TabIndex = 0;
+            this.btnUpdateSheet1.Text = "UpdateSheet";
+            this.btnUpdateSheet1.UseVisualStyleBackColor = true;
+            this.btnUpdateSheet1.Click += new System.EventHandler(this.btnUpdateSheet1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1526, 807);
+            this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "Form1";
@@ -116,6 +152,7 @@ namespace Numberapp
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -129,6 +166,9 @@ namespace Numberapp
         private System.Windows.Forms.Button btnUploadImage;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button btnProcess;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Button btnUploadCSVFile;
+        private System.Windows.Forms.Button btnUpdateSheet1;
     }
 }
 

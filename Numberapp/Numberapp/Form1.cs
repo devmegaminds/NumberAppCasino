@@ -1,6 +1,8 @@
 ﻿
+using ExcelDataReader;
 using IronOcr;
 using Microsoft.Office.Interop.Excel;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +19,7 @@ namespace Numberapp
 {
     public partial class Form1 : Form
     {
+        Dictionary<string, string> Dict = new Dictionary<string, string>();
         public Form1()
         {
             InitializeComponent();
@@ -24,19 +27,8 @@ namespace Numberapp
 
         private void btnBlankSheet_Click(object sender, EventArgs e)
         {
-            Microsoft.Office.Interop.Excel.Application excelApp = new Microsoft.Office.Interop.Excel.Application();
-
-            // Create a new workbook
-            Microsoft.Office.Interop.Excel.Workbook workbook = excelApp.Workbooks.Add();
-
-            //// Get the active worksheet
-            Microsoft.Office.Interop.Excel.Worksheet worksheet = workbook.ActiveSheet;
-
-            // Add the header
-            worksheet.Cells[1, 1] = "Data";
-
-            // Start from the second row
-            int row = 2;
+            string excelFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "temp.csv");
+            var message = "";
 
             // Loop through the specified range of values
             for (int i = 0; i <= 36; i++)
@@ -46,29 +38,17 @@ namespace Numberapp
                     for (int k = 0; k <= 36; k++)
                     {
                         // Concatenate the values with dashes
-                        string data = $"{i} | {j} | {k}";
+                        message += i.ToString() + "|" + j.ToString() + "|" + k.ToString() + "\n";
 
-                        // Write the data to the cell in Column A and the current row
-                        worksheet.Cells[row, 1] = data;
-
-                        // Move to the next row
-                        row++;
                     }
                 }
             }
 
-            //// Save the workbook
-            workbook.SaveAs("BlankExcelSheet.xlsx");
+            File.WriteAllText(excelFilePath, message);
 
-            // Close Excel application
-            excelApp.Quit();
-
-            // Release the resources
-            System.Runtime.InteropServices.Marshal.ReleaseComObject(workbook);
-            System.Runtime.InteropServices.Marshal.ReleaseComObject(excelApp);
+            MessageBox.Show("Excel sheet generated successfully.");
 
 
-            MessageBox.Show("Blank Excel sheet generated successfully.");
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -92,10 +72,6 @@ namespace Numberapp
 
         private void btnProcess_Click(object sender, EventArgs e)
         {
-            // Get the dimensions of the image
-            //int width = pictureBox1.Image.Width;
-            //int height = pictureBox1.Image.Height;
-
             if (pictureBox1.Image == null)
             {
                 MessageBox.Show("Please upload an image first.");
@@ -105,12 +81,12 @@ namespace Numberapp
             string extractedText = ReadTextFromImage(pictureBox1.Image);
 
             // Create a CSV file and write the extracted text to it
-            string csvFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Extracteddata.csv");
+            string csvFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Extracteddatamebu.csv");
+
             File.WriteAllText(csvFilePath, extractedText);
 
-
-
         }
+
         private string ReadTextFromImage(Image image)
         {
             // Initialize an OCR engine
@@ -122,7 +98,84 @@ namespace Numberapp
             // Return the extracted text
             return result.Text;
         }
-    
+
+        private void btnUploadCSVFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "CSV Files|*.csv";
+            openFileDialog.Title = "Select a CSV File";
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var csvData = File.ReadAllLines(openFileDialog.FileName);
+
+                // Convert the CSV data to a list of integers
+                List<int[]> integerList = new List<int[]>();
+
+                Dict.Clear();
+
+                foreach (var row in csvData)
+                {
+                    // Split the row into individual values
+                    var values = row.Split(',');
+
+                    // Convert each value to an integer, or use 0 if the value is empty
+                    var integers = values.Select(v => string.IsNullOrEmpty(v) ? -1 : int.Parse(v)).ToArray();
+
+                    // Add the array of integers to the list
+                    integerList.Add(integers);
+                }
+
+                List<int> AllData = integerList.SelectMany(arr => arr).Where(num => num != -1).ToList();
+
+                // Display the list of integers in a message box
+                var message = "";
+                for (int i = 0; i < AllData.Count() - 3; i++)
+                {
+                    var x = AllData[i + 1] + "|" + AllData[i + 2] + "|" + AllData[i + 3];
+                    if (Dict.ContainsKey(x))
+                    {
+                        Dict[x] += "| " + AllData[i];
+                    }
+                    else
+                    {
+                        Dict.Add(x, AllData[i].ToString());
+                    }
+                }
+
+                MessageBox.Show("CSV File Uploaded successfully.");
+              
+            }
+
+        }
+
+        private void btnUpdateSheet1_Click(object sender, EventArgs e)
+        {
+            string CSVFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "temp.csv");
+
+            // Get the first worksheet in the CSV file
+            var message = "";
+            var TargetcsvData = File.ReadAllLines(CSVFilePath);
+
+            foreach (var row in TargetcsvData)
+            {
+                var values = row.Split(',').FirstOrDefault();
+                message += values;
+                if (Dict.ContainsKey(values))
+                {
+                    message += "," + Dict[values];
+                }
+                message += "\n";
+            }
+
+            File.WriteAllText(CSVFilePath, message);
+            MessageBox.Show("Excel file updated successfully.");
+            MessageBox.Show(message);
+           
+
+        }
+
+
     }
 }
 
