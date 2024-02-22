@@ -23,6 +23,9 @@ namespace Numberapp
         public Form1()
         {
             InitializeComponent();
+            // Set up the BackgroundWorker
+            backgroundWorker1.DoWork += backgroundWorker1_DoWork;
+            backgroundWorker1.RunWorkerCompleted += backgroundWorker1_RunWorkerCompleted;
         }
 
         private void btnBlankSheet_Click(object sender, EventArgs e)
@@ -151,6 +154,42 @@ namespace Numberapp
 
         private void btnUpdateSheet1_Click(object sender, EventArgs e)
         {
+            //// Show progress bar
+            //progressBar1.Visible = true;
+
+            //string CSVFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "temp.csv");
+
+            //// Get the first worksheet in the CSV file
+            //var message = "";
+            //var TargetcsvData = File.ReadAllLines(CSVFilePath);
+
+            //foreach (var row in TargetcsvData)
+            //{
+            //    var values = row.Split(',').FirstOrDefault();
+            //    message += values;
+            //    if (Dict.ContainsKey(values))
+            //    {
+            //        message += "," + Dict[values];
+            //    }
+            //    message += "\n";
+            //}
+
+            //File.WriteAllText(CSVFilePath, message);
+            //MessageBox.Show("Excel file updated successfully.");
+            //MessageBox.Show(message);
+            //// Hide progress bar
+            //progressBar1.Visible = false;
+
+            // Show progress bar
+            progressBar1.Visible = true;
+
+            // Start the BackgroundWorker
+            backgroundWorker1.RunWorkerAsync();
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            // Update the CSV file
             string CSVFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "temp.csv");
 
             // Get the first worksheet in the CSV file
@@ -169,13 +208,20 @@ namespace Numberapp
             }
 
             File.WriteAllText(CSVFilePath, message);
+
+            // Pass the message to the RunWorkerCompleted event
+            e.Result = message;
+        }
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            // Hide progress bar
+            progressBar1.Visible = false;
+
+            // Show message box with the result
+            string message = e.Result as string;
             MessageBox.Show("Excel file updated successfully.");
             MessageBox.Show(message);
-
-
         }
-
-
     }
 }
 

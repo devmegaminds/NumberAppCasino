@@ -39,6 +39,8 @@ namespace Numberapp
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnUploadCSVFile = new System.Windows.Forms.Button();
             this.btnUpdateSheet1 = new System.Windows.Forms.Button();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -59,7 +61,7 @@ namespace Numberapp
             // 
             this.btnBlankSheet.Location = new System.Drawing.Point(1260, 30);
             this.btnBlankSheet.Name = "btnBlankSheet";
-            this.btnBlankSheet.Size = new System.Drawing.Size(100, 23);
+            this.btnBlankSheet.Size = new System.Drawing.Size(100, 32);
             this.btnBlankSheet.TabIndex = 0;
             this.btnBlankSheet.Text = "Sheet";
             this.btnBlankSheet.UseVisualStyleBackColor = true;
@@ -80,7 +82,7 @@ namespace Numberapp
             // 
             this.btnProcess.Location = new System.Drawing.Point(618, 190);
             this.btnProcess.Name = "btnProcess";
-            this.btnProcess.Size = new System.Drawing.Size(100, 23);
+            this.btnProcess.Size = new System.Drawing.Size(100, 34);
             this.btnProcess.TabIndex = 2;
             this.btnProcess.Text = "Process";
             this.btnProcess.UseVisualStyleBackColor = true;
@@ -98,7 +100,7 @@ namespace Numberapp
             // 
             this.btnUploadImage.Location = new System.Drawing.Point(38, 44);
             this.btnUploadImage.Name = "btnUploadImage";
-            this.btnUploadImage.Size = new System.Drawing.Size(100, 23);
+            this.btnUploadImage.Size = new System.Drawing.Size(100, 37);
             this.btnUploadImage.TabIndex = 0;
             this.btnUploadImage.Text = "UploadImage";
             this.btnUploadImage.UseVisualStyleBackColor = true;
@@ -115,14 +117,14 @@ namespace Numberapp
             this.panel3.Controls.Add(this.btnUpdateSheet1);
             this.panel3.Location = new System.Drawing.Point(61, 460);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1405, 158);
+            this.panel3.Size = new System.Drawing.Size(1405, 150);
             this.panel3.TabIndex = 2;
             // 
             // btnUploadCSVFile
             // 
             this.btnUploadCSVFile.Location = new System.Drawing.Point(357, 77);
             this.btnUploadCSVFile.Name = "btnUploadCSVFile";
-            this.btnUploadCSVFile.Size = new System.Drawing.Size(100, 23);
+            this.btnUploadCSVFile.Size = new System.Drawing.Size(100, 34);
             this.btnUploadCSVFile.TabIndex = 1;
             this.btnUploadCSVFile.Text = "UploadCSVFile";
             this.btnUploadCSVFile.UseVisualStyleBackColor = true;
@@ -133,17 +135,31 @@ namespace Numberapp
             this.btnUpdateSheet1.Location = new System.Drawing.Point(819, 77);
             this.btnUpdateSheet1.Name = "btnUpdateSheet1";
             this.btnUpdateSheet1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.btnUpdateSheet1.Size = new System.Drawing.Size(100, 23);
+            this.btnUpdateSheet1.Size = new System.Drawing.Size(100, 31);
             this.btnUpdateSheet1.TabIndex = 0;
             this.btnUpdateSheet1.Text = "UpdateSheet";
             this.btnUpdateSheet1.UseVisualStyleBackColor = true;
             this.btnUpdateSheet1.Click += new System.EventHandler(this.btnUpdateSheet1_Click);
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(1399, 713);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(100, 23);
+            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.progressBar1.TabIndex = 3;
+            this.progressBar1.Visible = false;
+            // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1526, 807);
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -169,6 +185,8 @@ namespace Numberapp
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button btnUploadCSVFile;
         private System.Windows.Forms.Button btnUpdateSheet1;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
 
