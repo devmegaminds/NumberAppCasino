@@ -23,14 +23,13 @@ namespace Numberapp
         public Form1()
         {
             InitializeComponent();
-            // Set up the BackgroundWorker
-            backgroundWorker1.DoWork += backgroundWorker1_DoWork;
-            backgroundWorker1.RunWorkerCompleted += backgroundWorker1_RunWorkerCompleted;
+
         }
 
         private void btnBlankSheet_Click(object sender, EventArgs e)
         {
             string excelFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "temp.csv");
+           const string dash = "-"; // Define a constant for the dash character
             var message = "";
 
             // Loop through the specified range of values
@@ -43,6 +42,7 @@ namespace Numberapp
                         // Concatenate the values with dashes
                         message += i.ToString() + "|" + j.ToString() + "|" + k.ToString() + "\n";
 
+                        //message += $"{i.ToString()}-{j.ToString()}-{k.ToString()}\n";
                     }
                 }
             }
@@ -51,11 +51,6 @@ namespace Numberapp
 
             MessageBox.Show("Excel sheet generated successfully.");
 
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
 
         }
 
@@ -84,7 +79,7 @@ namespace Numberapp
             string extractedText = ReadTextFromImage(pictureBox1.Image);
 
             // Create a CSV file and write the extracted text to it
-            string csvFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Extracteddatamebu.csv");
+            string csvFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "mm.csv");
 
             File.WriteAllText(csvFilePath, extractedText);
 
@@ -152,44 +147,20 @@ namespace Numberapp
 
         }
 
-        private void btnUpdateSheet1_Click(object sender, EventArgs e)
+        private void btnupdateoldcsvfile_Click(object sender, EventArgs e)
         {
-            //// Show progress bar
-            //progressBar1.Visible = true;
-
-            //string CSVFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "temp.csv");
-
-            //// Get the first worksheet in the CSV file
-            //var message = "";
-            //var TargetcsvData = File.ReadAllLines(CSVFilePath);
-
-            //foreach (var row in TargetcsvData)
-            //{
-            //    var values = row.Split(',').FirstOrDefault();
-            //    message += values;
-            //    if (Dict.ContainsKey(values))
-            //    {
-            //        message += "," + Dict[values];
-            //    }
-            //    message += "\n";
-            //}
-
-            //File.WriteAllText(CSVFilePath, message);
-            //MessageBox.Show("Excel file updated successfully.");
-            //MessageBox.Show(message);
-            //// Hide progress bar
-            //progressBar1.Visible = false;
-
-            // Show progress bar
-            progressBar1.Visible = true;
-
-            // Start the BackgroundWorker
-            backgroundWorker1.RunWorkerAsync();
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "CSV Files|*.csv";
+            openFileDialog.Title = "Select a CSV File";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var csvData = File.ReadAllLines(openFileDialog.FileName);
+            }
+            MessageBox.Show("CSV File Uploaded successfully.");
         }
 
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        private void btnUpdateSheet1_Click(object sender, EventArgs e)
         {
-            // Update the CSV file
             string CSVFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "temp.csv");
 
             // Get the first worksheet in the CSV file
@@ -199,29 +170,27 @@ namespace Numberapp
             foreach (var row in TargetcsvData)
             {
                 var values = row.Split(',').FirstOrDefault();
+                bool IsCommanPresent = row.Contains(',');
                 message += values;
                 if (Dict.ContainsKey(values))
                 {
-                    message += "," + Dict[values];
+                    if (IsCommanPresent)
+                    {
+                        message += "," + row.Split(',')[1] + "| " + Dict[values];
+                    }
+                    else
+                    {
+                        message += "," + Dict[values];
+                    }
                 }
                 message += "\n";
             }
 
             File.WriteAllText(CSVFilePath, message);
-
-            // Pass the message to the RunWorkerCompleted event
-            e.Result = message;
-        }
-        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            // Hide progress bar
-            progressBar1.Visible = false;
-
-            // Show message box with the result
-            string message = e.Result as string;
             MessageBox.Show("Excel file updated successfully.");
             MessageBox.Show(message);
         }
+
     }
 }
 
