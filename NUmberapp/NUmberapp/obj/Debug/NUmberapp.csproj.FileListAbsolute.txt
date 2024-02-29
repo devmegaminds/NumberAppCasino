@@ -1,0 +1,10 @@
+E:\Create blank sheet with series\NUmberapp\NUmberapp\bin\Debug\NUmberapp.exe.config
+E:\Create blank sheet with series\NUmberapp\NUmberapp\bin\Debug\NUmberapp.exe
+E:\Create blank sheet with series\NUmberapp\NUmberapp\bin\Debug\NUmberapp.pdb
+E:\Create blank sheet with series\NUmberapp\NUmberapp\obj\Debug\NUmberapp.csproj.AssemblyReference.cache
+E:\Create blank sheet with series\NUmberapp\NUmberapp\obj\Debug\NUmberapp.Form1.resources
+E:\Create blank sheet with series\NUmberapp\NUmberapp\obj\Debug\NUmberapp.Properties.Resources.resources
+E:\Create blank sheet with series\NUmberapp\NUmberapp\obj\Debug\NUmberapp.csproj.GenerateResource.cache
+E:\Create blank sheet with series\NUmberapp\NUmberapp\obj\Debug\NUmberapp.csproj.CoreCompileInputs.cache
+E:\Create blank sheet with series\NUmberapp\NUmberapp\obj\Debug\NUmberapp.exe
+E:\Create blank sheet with series\NUmberapp\NUmberapp\obj\Debug\NUmberapp.pdb
