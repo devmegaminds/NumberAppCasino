@@ -29,12 +29,13 @@ namespace Blank_Sheet
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnBlankSheet = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnUploadCSVFile = new System.Windows.Forms.Button();
-            this.btnupdateoldcsvfile = new System.Windows.Forms.Button();
             this.btnUpdateSheet1 = new System.Windows.Forms.Button();
+            this.btnupdateoldcsvfile = new System.Windows.Forms.Button();
+            this.btnUploadCSVFile = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -69,15 +70,16 @@ namespace Blank_Sheet
             this.panel2.Size = new System.Drawing.Size(1407, 166);
             this.panel2.TabIndex = 1;
             // 
-            // btnUploadCSVFile
+            // btnUpdateSheet1
             // 
-            this.btnUploadCSVFile.Location = new System.Drawing.Point(361, 37);
-            this.btnUploadCSVFile.Name = "btnUploadCSVFile";
-            this.btnUploadCSVFile.Size = new System.Drawing.Size(100, 34);
-            this.btnUploadCSVFile.TabIndex = 2;
-            this.btnUploadCSVFile.Text = "UploadCSVFile";
-            this.btnUploadCSVFile.UseVisualStyleBackColor = true;
-            this.btnUploadCSVFile.Click += new System.EventHandler(this.btnUploadCSVFile_Click);
+            this.btnUpdateSheet1.Location = new System.Drawing.Point(579, 114);
+            this.btnUpdateSheet1.Name = "btnUpdateSheet1";
+            this.btnUpdateSheet1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.btnUpdateSheet1.Size = new System.Drawing.Size(100, 31);
+            this.btnUpdateSheet1.TabIndex = 4;
+            this.btnUpdateSheet1.Text = "Process";
+            this.btnUpdateSheet1.UseVisualStyleBackColor = true;
+            this.btnUpdateSheet1.Click += new System.EventHandler(this.btnUpdateSheet1_Click);
             // 
             // btnupdateoldcsvfile
             // 
@@ -90,16 +92,15 @@ namespace Blank_Sheet
             this.btnupdateoldcsvfile.UseVisualStyleBackColor = true;
             this.btnupdateoldcsvfile.Click += new System.EventHandler(this.btnupdateoldcsvfile_Click);
             // 
-            // btnUpdateSheet1
+            // btnUploadCSVFile
             // 
-            this.btnUpdateSheet1.Location = new System.Drawing.Point(579, 114);
-            this.btnUpdateSheet1.Name = "btnUpdateSheet1";
-            this.btnUpdateSheet1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.btnUpdateSheet1.Size = new System.Drawing.Size(100, 31);
-            this.btnUpdateSheet1.TabIndex = 4;
-            this.btnUpdateSheet1.Text = "Process";
-            this.btnUpdateSheet1.UseVisualStyleBackColor = true;
-            this.btnUpdateSheet1.Click += new System.EventHandler(this.btnUpdateSheet1_Click);
+            this.btnUploadCSVFile.Location = new System.Drawing.Point(361, 37);
+            this.btnUploadCSVFile.Name = "btnUploadCSVFile";
+            this.btnUploadCSVFile.Size = new System.Drawing.Size(100, 34);
+            this.btnUploadCSVFile.TabIndex = 2;
+            this.btnUploadCSVFile.Text = "UploadCSVFile";
+            this.btnUploadCSVFile.UseVisualStyleBackColor = true;
+            this.btnUploadCSVFile.Click += new System.EventHandler(this.btnUploadCSVFile_Click);
             // 
             // Form1
             // 
@@ -108,8 +109,9 @@ namespace Blank_Sheet
             this.ClientSize = new System.Drawing.Size(1511, 712);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "NumberApp";
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
