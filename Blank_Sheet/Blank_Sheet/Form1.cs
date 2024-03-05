@@ -21,46 +21,6 @@ namespace Blank_Sheet
         const string pipe = "|"; // Define a constant for the dash character
         private void btnBlankSheet_Click_1(object sender, EventArgs e)
         {
-            //Old Code
-            //    // Create a SaveFileDialog instance
-            //    SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-
-            //    // Set the default file name and extension
-            //    saveFileDialog1.FileName = "Untitled.csv";
-            //    saveFileDialog1.DefaultExt = ".csv";
-
-            //    // Set the initial directory to the Desktop
-            //    saveFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-
-            //    // Display the SaveFileDialog and check if the user clicked the OK button
-            //    if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-            //    {
-            //        var message = "";
-
-            //        // Loop through the specified range of values
-            //        for (int i = 0; i <= 36; i++)
-            //        {
-            //            for (int j = 0; j <= 36; j++)
-            //            {
-            //                for (int k = 0; k <= 36; k++)
-            //                {
-            //                    // Concatenate the values with dashes
-            //                    message += i.ToString() + pipe + j.ToString() + pipe + k.ToString() + "\n";
-
-            //                    //message += $"{i.ToString()}-{j.ToString()}-{k.ToString()}\n";
-            //                }
-            //            }
-            //        }
-
-            //        // Get the full file path from the SaveFileDialog
-            //        string excelFilePath = saveFileDialog1.FileName;
-
-            //        // Write the message to the selected file
-            //        File.WriteAllText(excelFilePath, message);
-
-            //        MessageBox.Show("Excel sheet generated successfully.");
-
-
             //New Code
             // Create a message to store the CSV content
             var message = "";
@@ -94,105 +54,8 @@ namespace Blank_Sheet
             MessageBox.Show("CSV file generated successfully.");
         }
 
-        private void btnUploadCSVFile_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "CSV Files|*.csv";
-            openFileDialog.Title = "Select a CSV File";
 
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                var csvData = File.ReadAllLines(openFileDialog.FileName);
-
-                // Convert the CSV data to a list of integers
-                List<int[]> integerList = new List<int[]>();
-
-                Dict.Clear();
-
-                foreach (var row in csvData)
-                {
-                    // Split the row into individual values
-                    var values = row.Split(',');
-
-                    // Convert each value to an integer, or use 0 if the value is empty
-                    var integers = values.Select(v => string.IsNullOrEmpty(v) ? -1 : int.Parse(v)).ToArray();
-
-                    // Add the array of integers to the list
-                    integerList.Add(integers);
-                }
-
-                List<int> AllData = integerList.SelectMany(arr => arr).Where(num => num != -1).ToList();
-
-                // Display the list of integers in a message box
-                var message = "";
-                for (int i = 0; i < AllData.Count() - 3; i++)
-                {
-                    var x = AllData[i + 1] + pipe + AllData[i + 2] + pipe + AllData[i + 3];
-                    if (Dict.ContainsKey(x))
-                    {
-                        Dict[x] += "| " + AllData[i];
-                    }
-                    else
-                    {
-                        Dict.Add(x, AllData[i].ToString());
-                    }
-                }
-
-                MessageBox.Show("CSV File Uploaded successfully.");
-
-            }
-
-        }
-        private string SelectedCSVFilePath;
-        private void btnupdateoldcsvfile_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "CSV Files|*.csv";
-            openFileDialog.Title = "Select a CSV File";
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                SelectedCSVFilePath = openFileDialog.FileName; // Store the selected file path in the class-level variable
-                var csvData = File.ReadAllLines(SelectedCSVFilePath);
-            }
-            MessageBox.Show("CSV File Uploaded successfully.");
-        }
-
-        private void btnUpdateSheet1_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(SelectedCSVFilePath))
-            {
-                MessageBox.Show("Please select a CSV file first.");
-                return;
-            }
-
-
-            // Get the first worksheet in the CSV file
-            var message = "";
-            var TargetcsvData = File.ReadAllLines(SelectedCSVFilePath);
-
-            foreach (var row in TargetcsvData)
-            {
-                var values = row.Split(',').FirstOrDefault();
-                bool IsCommanPresent = row.Contains(',');
-                message += values;
-                if (Dict.ContainsKey(values))
-                {
-                    if (IsCommanPresent)
-                    {
-                        message += "," + row.Split(',')[1] + " " + Dict[values];
-                    }
-                    else
-                    {
-                        message += "," + Dict[values];
-                    }
-                }
-                message += "\n";
-            }
-
-            File.WriteAllText(SelectedCSVFilePath, message);
-            MessageBox.Show("Excel file updated successfully.");
-            MessageBox.Show(message);
-        }
     }
 }
+
 
