@@ -62,6 +62,114 @@ namespace Blank_Sheet
             // Open the folder in File Explorer
             System.Diagnostics.Process.Start("explorer.exe", desktopPath);
         }
+
+        private void btnuploadimagedata_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "CSV Files|*.csv";
+            openFileDialog.Title = "Select a CSV File";
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var csvData = File.ReadAllLines(openFileDialog.FileName);
+
+                // Convert the CSV data to a list of integers
+                List<int[]> integerList = new List<int[]>();
+
+                Dict.Clear();
+
+                foreach (var row in csvData)
+                {
+                    // Split the row into individual values
+                    var values = row.Split(',');
+
+                    // Convert each value to an integer, or use 0 if the value is empty
+                    var integers = values.Select(v => string.IsNullOrEmpty(v) ? -1 : int.Parse(v)).ToArray();
+
+                    // Add the array of integers to the list
+                    integerList.Add(integers);
+                }
+
+                List<int> AllData = integerList.SelectMany(arr => arr).Where(num => num != -1).ToList();
+
+                // Display the list of integers in a message box
+                var message = "";
+                for (int i = 0; i < AllData.Count() - 3; i++)
+                {
+                    var x = AllData[i + 1] + pipe + AllData[i + 2] + pipe + AllData[i + 3];
+                    if (Dict.ContainsKey(x))
+                    {
+                        Dict[x] += "| " + AllData[i];
+                    }
+                    else
+                    {
+                        Dict.Add(x, AllData[i].ToString());
+                    }
+                }
+
+                MessageBox.Show("CSV File Uploaded successfully.");
+                // Set the label text to the path of the CSV file
+                lbluploadimagedatapath.Text = openFileDialog.FileName;
+
+            }
+        }
+        private string SelectedCSVFilePath;
+        private void btnuploaddatacsvfile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "CSV Files|*.csv";
+            openFileDialog.Title = "Select a CSV File";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                SelectedCSVFilePath = openFileDialog.FileName; // Store the selected file path in the class-level variable
+                var csvData = File.ReadAllLines(SelectedCSVFilePath);
+            }
+            MessageBox.Show("CSV File Uploaded successfully.");
+            // Set the label text to the path of the CSV file
+            lbluploaddatacsvfilepath.Text = openFileDialog.FileName;
+        }
+
+        private void btnprocess_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(SelectedCSVFilePath))
+            {
+                MessageBox.Show("Please select a CSV file first.");
+                return;
+            }
+
+
+            // Get the first worksheet in the CSV file
+            var message = "";
+            var TargetcsvData = File.ReadAllLines(SelectedCSVFilePath);
+
+            foreach (var row in TargetcsvData)
+            {
+                var values = row.Split(',').FirstOrDefault();
+                bool IsCommanPresent = row.Contains(',');
+                message += values;
+                if (Dict.ContainsKey(values))
+                {
+                    if (IsCommanPresent)
+                    {
+                        message += "," + row.Split(',')[1] + " " + Dict[values];
+                    }
+                    else
+                    {
+                        message += "," + Dict[values];
+                    }
+                }
+                message += "\n";
+            }
+
+            File.WriteAllText(SelectedCSVFilePath, message);
+            MessageBox.Show("Excel file updated successfully.");
+            MessageBox.Show(message);
+        }
+
+        private void lbluploaddatacsvfilepath_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
