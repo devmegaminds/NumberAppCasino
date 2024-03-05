@@ -8,3 +8,13 @@ E:\Mehul\Blank_sheet\Blank_Sheet\Blank_Sheet\obj\Debug\Blank_Sheet.csproj.Genera
 E:\Mehul\Blank_sheet\Blank_Sheet\Blank_Sheet\obj\Debug\Blank_Sheet.csproj.CoreCompileInputs.cache
 E:\Mehul\Blank_sheet\Blank_Sheet\Blank_Sheet\obj\Debug\Blank_Sheet.exe
 E:\Mehul\Blank_sheet\Blank_Sheet\Blank_Sheet\obj\Debug\Blank_Sheet.pdb
+D:\numberapp\Blank_Sheet\Blank_Sheet\bin\Debug\Blank_Sheet.exe.config
+D:\numberapp\Blank_Sheet\Blank_Sheet\bin\Debug\Blank_Sheet.exe
+D:\numberapp\Blank_Sheet\Blank_Sheet\bin\Debug\Blank_Sheet.pdb
+D:\numberapp\Blank_Sheet\Blank_Sheet\obj\Debug\Blank_Sheet.csproj.AssemblyReference.cache
+D:\numberapp\Blank_Sheet\Blank_Sheet\obj\Debug\Blank_Sheet.Form1.resources
+D:\numberapp\Blank_Sheet\Blank_Sheet\obj\Debug\Blank_Sheet.Properties.Resources.resources
+D:\numberapp\Blank_Sheet\Blank_Sheet\obj\Debug\Blank_Sheet.csproj.GenerateResource.cache
+D:\numberapp\Blank_Sheet\Blank_Sheet\obj\Debug\Blank_Sheet.csproj.CoreCompileInputs.cache
+D:\numberapp\Blank_Sheet\Blank_Sheet\obj\Debug\Blank_Sheet.exe
+D:\numberapp\Blank_Sheet\Blank_Sheet\obj\Debug\Blank_Sheet.pdb
