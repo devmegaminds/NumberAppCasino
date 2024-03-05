@@ -52,6 +52,15 @@ namespace Blank_Sheet
 
             MessageBox.Show("CSV file generated successfully.");
         }
+
+        private void btnopenyourdesktop_Click(object sender, EventArgs e)
+        {
+            // Get the path for the Desktop folder
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+            // Open the folder in File Explorer
+            System.Diagnostics.Process.Start("explorer.exe", desktopPath);
+        }
     }
 }
 
