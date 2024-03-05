@@ -29,58 +29,47 @@ namespace Blank_Sheet
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
             this.btnBlankSheet = new System.Windows.Forms.Button();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.panel1.SuspendLayout();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.panel1.Controls.Add(this.btnBlankSheet);
-            this.panel1.Location = new System.Drawing.Point(51, 28);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1407, 86);
-            this.panel1.TabIndex = 0;
             // 
             // btnBlankSheet
             // 
-            this.btnBlankSheet.Location = new System.Drawing.Point(1248, 30);
+            this.btnBlankSheet.Location = new System.Drawing.Point(18, 46);
             this.btnBlankSheet.Name = "btnBlankSheet";
-            this.btnBlankSheet.Size = new System.Drawing.Size(100, 32);
+            this.btnBlankSheet.Size = new System.Drawing.Size(109, 26);
             this.btnBlankSheet.TabIndex = 1;
-            this.btnBlankSheet.Text = "Sheet";
+            this.btnBlankSheet.Text = "Create New Sheet";
             this.btnBlankSheet.UseVisualStyleBackColor = true;
             this.btnBlankSheet.Click += new System.EventHandler(this.btnBlankSheet_Click_1);
             // 
-            // panel2
+            // groupBox1
             // 
-            this.panel2.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.panel2.Location = new System.Drawing.Point(52, 172);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1407, 108);
-            this.panel2.TabIndex = 1;
+            this.groupBox1.Controls.Add(this.btnBlankSheet);
+            this.groupBox1.Location = new System.Drawing.Point(33, 64);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(1409, 100);
+            this.groupBox1.TabIndex = 2;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Step 1 Create Blank Sheet";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1511, 712);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.panel1.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnBlankSheet;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 
