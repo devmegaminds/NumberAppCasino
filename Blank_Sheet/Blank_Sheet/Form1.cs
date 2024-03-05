@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -137,38 +138,66 @@ namespace Blank_Sheet
                 return;
             }
 
+            // Show the progress bar
+            progressBar1.Visible = true;
 
-            // Get the first worksheet in the CSV file
-            var message = "";
-            var TargetcsvData = File.ReadAllLines(SelectedCSVFilePath);
+            // Create a BackgroundWorker instance
+            BackgroundWorker worker = new BackgroundWorker();
 
-            foreach (var row in TargetcsvData)
+            // Worker method to perform the processing
+            worker.DoWork += (senderObj, eventArgs) =>
             {
-                var values = row.Split(',').FirstOrDefault();
-                bool IsCommanPresent = row.Contains(',');
-                message += values;
-                if (Dict.ContainsKey(values))
-                {
-                    if (IsCommanPresent)
-                    {
-                        message += "," + row.Split(',')[1] + " " + Dict[values];
-                    }
-                    else
-                    {
-                        message += "," + Dict[values];
-                    }
-                }
-                message += "\n";
-            }
+                // Get the first worksheet in the CSV file
+                var message = "";
+                var TargetcsvData = File.ReadAllLines(SelectedCSVFilePath);
 
-            File.WriteAllText(SelectedCSVFilePath, message);
-            MessageBox.Show("Excel file updated successfully.");
-            MessageBox.Show(message);
+                foreach (var row in TargetcsvData)
+                {
+                    var values = row.Split(',').FirstOrDefault();
+                    bool IsCommanPresent = row.Contains(',');
+                    message += values;
+                    if (Dict.ContainsKey(values))
+                    {
+                        if (IsCommanPresent)
+                        {
+                            message += "," + row.Split(',')[1] + " / " + Dict[values];
+                        }
+                        else
+                        {
+                            message += "," + Dict[values];
+                        }
+                    }
+                    message += "\n";
+                }
+
+                File.WriteAllText(SelectedCSVFilePath, message);
+
+                // Return the result if needed
+                eventArgs.Result = message;
+            };
+
+            // Worker completed event to handle completion
+            worker.RunWorkerCompleted += (senderObj, eventArgs) =>
+            {
+                // Hide the progress bar
+                progressBar1.Visible = false;
+
+                // Show completion message
+                MessageBox.Show("Excel file updated successfully.");
+                MessageBox.Show(eventArgs.Result.ToString());
+
+                // Open the processed file
+                Process.Start(SelectedCSVFilePath);
+            };
+
+            // Start the background worker
+            worker.RunWorkerAsync();
         }
 
-        private void lbluploaddatacsvfilepath_Click(object sender, EventArgs e)
+        private void pictureBox1_Click(object sender, EventArgs e)
         {
-
+            // Display the message when the icon is clicked
+            MessageBox.Show("This file must be a which you have created in step-1");
         }
     }
 }
