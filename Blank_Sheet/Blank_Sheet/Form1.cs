@@ -31,8 +31,6 @@ namespace Blank_Sheet
             // Create a BackgroundWorker instance
             BackgroundWorker worker = new BackgroundWorker();
 
-       
-
             // Worker method to perform the processing
             worker.DoWork += (senderObj, eventArgs) =>
             {
@@ -59,8 +57,11 @@ namespace Blank_Sheet
                 // Get the path for the Desktop folder
                 string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
+                // Combine the desktop path with the file name
+                string filePath = Path.Combine(desktopPath, fileName);
+
                 // Write the message to the file
-                File.WriteAllText(fileName, message);
+                File.WriteAllText(filePath, message);
 
                 // Return the result if needed
                 eventArgs.Result = fileName;
@@ -82,8 +83,10 @@ namespace Blank_Sheet
                 }
                 else
                 {
+                    // Extract the file name from the full path
+                    string fileName = Path.GetFileName(eventArgs.Result.ToString());
                     // Show completion message
-                    MessageBox.Show("Blank file has been generated successfully.\nFile Name : " + eventArgs.Result.ToString());
+                    MessageBox.Show("Blank file has been generated successfully.\nFile Name : " + fileName);
                 }
             };
 
