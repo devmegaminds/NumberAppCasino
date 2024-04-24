@@ -74,6 +74,7 @@ namespace Blank_Sheet
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Step 1 Create a balnk Sheet";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // step1progressBar
             // 
@@ -130,7 +131,7 @@ namespace Blank_Sheet
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::Blank_Sheet.Properties.Resources._8425341;
+            this.pictureBox1.Image = global::Blank_Sheet.Properties.Resources.games_valorant_icon_2048x2048_68la6c9i;
             this.pictureBox1.Location = new System.Drawing.Point(981, 50);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(17, 22);

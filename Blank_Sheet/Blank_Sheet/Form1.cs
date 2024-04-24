@@ -15,6 +15,7 @@ namespace Blank_Sheet
     public partial class Form1 : Form
     {
         Dictionary<string, string> Dict = new Dictionary<string, string>();
+
         public Form1()
         {
             InitializeComponent();
@@ -153,7 +154,9 @@ namespace Blank_Sheet
 
             }
         }
+
         private string SelectedCSVFilePath;
+
         private void btnuploaddatacsvfile_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -163,6 +166,7 @@ namespace Blank_Sheet
             {
                 SelectedCSVFilePath = openFileDialog.FileName; // Store the selected file path in the class-level variable
                 var csvData = File.ReadAllLines(SelectedCSVFilePath);
+   
             }
             MessageBox.Show("CSV File Uploaded successfully.");
             // Set the label text to the path of the CSV file
@@ -186,37 +190,105 @@ namespace Blank_Sheet
             // Create a BackgroundWorker instance
             BackgroundWorker worker = new BackgroundWorker();
 
+            //worker.DoWork += (senderObj, eventArgs) =>
+            //{
+            //    // Get the first worksheet in the CSV file
+            //    var message = new StringBuilder();
+            //    var TargetcsvData = File.ReadAllLines(SelectedCSVFilePath);
+
+            //    foreach (var row in TargetcsvData)
+            //    {
+            //        var values = row.Split(',');
+
+            //        if (values.Length > 0)
+            //        {
+
+            //            // Check if the first cell is not empty
+            //            if (!string.IsNullOrWhiteSpace(values[0]))
+            //            {
+            //                // Check if dictionary contains the value in the first cell
+            //                var key = values[0].Trim();
+            //                if (Dict.ContainsKey(key))
+            //                {
+            //                    message.Append(values[0]); // Add the value
+
+            //                    // Check if there are additional values in the row
+            //                    if (values.Length > 1)
+            //                    {
+            //                        // Append comma and additional data if present
+            //                        message.Append("," + string.Join(",", values.Skip(1)));
+
+            //                    }
+
+            //                    // If there are multiple dictionary values, append them with a pipe symbol
+            //                    var dictValues = Dict[key].Split(',');
+
+            //                    if (dictValues.Count() > 0)
+            //                    {
+            //                        var value = Dict[key].Split('|');
+            //                        if (value.Count() > 1)
+            //                        {
+            //                            message.Append(" | " + value.FirstOrDefault());
+            //                        }
+            //                        else
+            //                            message.Append("," + Dict[key]);
+
+            //                        Dict[key] += $" | {value.FirstOrDefault()}";
+            //                    }
+            //                }
+            //                else
+            //                {
+            //                    // If not found in the dictionary, add the row as it is
+            //                    message.Append(row);
+            //                }
+            //            }
+            //            else
+            //            {
+            //                // If the first cell is empty, add the row as it is
+            //                message.Append(row);
+            //            }
+            //        }
+
+            //        message.AppendLine(); // Add a new line
+            //    }
+
+            //    File.WriteAllText(SelectedCSVFilePath, message.ToString());
+            //};
+
             // Worker method to perform the processing
             worker.DoWork += (senderObj, eventArgs) =>
             {
                 // Get the first worksheet in the CSV file
-                var message = "";
                 var TargetcsvData = File.ReadAllLines(SelectedCSVFilePath);
+                var updatedRows = new List<string>();
 
                 foreach (var row in TargetcsvData)
                 {
-                    var values = row.Split(',').FirstOrDefault();
-                    bool IsCommanPresent = row.Contains(',');
-                    message += values;
-                    if (Dict.ContainsKey(values))
+                    var values = row.Split(',');
+                    var firstValue = values.FirstOrDefault();
+                    bool isCommaPresent = row.Contains(',');
+
+                    if (Dict.ContainsKey(firstValue))
                     {
-                        if (IsCommanPresent)
+                        if (isCommaPresent)
                         {
-                            message += "," + row.Split(',')[1] + " / " + Dict[values];
+                            updatedRows.Add(firstValue + "," + values[1] + " | " + Dict[firstValue]);
                         }
                         else
                         {
-                            message += "," + Dict[values];
+                            updatedRows.Add(firstValue + "," + Dict[firstValue]);
                         }
                     }
-                    message += "\n";
+                    else
+                    {
+                        updatedRows.Add(row); // Keep the original row if key not found in dictionary
+                    }
                 }
 
-                File.WriteAllText(SelectedCSVFilePath, message);
-
-                // Return the result if needed
-                eventArgs.Result = message;
+                File.WriteAllLines(SelectedCSVFilePath, updatedRows);
             };
+
+
 
             // Worker completed event to handle completion
             worker.RunWorkerCompleted += (senderObj, eventArgs) =>
@@ -241,13 +313,19 @@ namespace Blank_Sheet
             worker.RunWorkerAsync();
         }
 
+
+      
+
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             // Display the message when the icon is clicked
             MessageBox.Show("This file must be a which you have created in step-1");
         }
 
-    
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
