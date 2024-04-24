@@ -272,16 +272,41 @@ namespace Blank_Sheet
                     {
                         if (isCommaPresent)
                         {
-                            updatedRows.Add(firstValue + "," + values[1] + " | " + Dict[firstValue]);
+                            updatedRows.Add(values[1] + " | " + Dict[firstValue] + "," + firstValue);
                         }
                         else
                         {
-                            updatedRows.Add(firstValue + "," + Dict[firstValue]);
+                            updatedRows.Add(Dict[firstValue] + "," + firstValue);
                         }
                     }
                     else
                     {
-                        updatedRows.Add(row); // Keep the original row if key not found in dictionary
+                        if (!firstValue.Equals(string.Empty) && values.Length == 1)
+                        {
+							updatedRows.Add("" + "," + row); // Keep the original row if key not found in dictionary
+						}
+                        else
+                        {
+                            if (values[0].Equals(string.Empty))
+                            {
+								updatedRows.Add(row);
+							}
+                            else
+                            {
+                                int lastColumn = values.Length - 1;
+                                string key = values[lastColumn];
+								if (Dict.ContainsKey(key))
+                                {
+									updatedRows.Add(values[0] + " | " + Dict[key] + "," + values[lastColumn]);
+								}
+                                else
+                                {
+									updatedRows.Add(values[0] +  "," + values[lastColumn]);
+								}
+							}
+                            
+                        }
+
                     }
                 }
 

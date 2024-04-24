@@ -47,3 +47,13 @@ E:\Ashish\NumberBlank_Sheet\Blank_Sheet\obj\Debug\Blank_Sheet.csproj.GenerateRes
 E:\Ashish\NumberBlank_Sheet\Blank_Sheet\obj\Debug\Blank_Sheet.csproj.CoreCompileInputs.cache
 E:\Ashish\NumberBlank_Sheet\Blank_Sheet\obj\Debug\Blank_Sheet.exe
 E:\Ashish\NumberBlank_Sheet\Blank_Sheet\obj\Debug\Blank_Sheet.pdb
+E:\Ashish\.Net\NumberAppCasino\Blank_Sheet\Blank_Sheet\bin\Debug\Blank_Sheet.exe.config
+E:\Ashish\.Net\NumberAppCasino\Blank_Sheet\Blank_Sheet\bin\Debug\Blank_Sheet.exe
+E:\Ashish\.Net\NumberAppCasino\Blank_Sheet\Blank_Sheet\bin\Debug\Blank_Sheet.pdb
+E:\Ashish\.Net\NumberAppCasino\Blank_Sheet\Blank_Sheet\obj\Debug\Blank_Sheet.csproj.AssemblyReference.cache
+E:\Ashish\.Net\NumberAppCasino\Blank_Sheet\Blank_Sheet\obj\Debug\Blank_Sheet.Form1.resources
+E:\Ashish\.Net\NumberAppCasino\Blank_Sheet\Blank_Sheet\obj\Debug\Blank_Sheet.Properties.Resources.resources
+E:\Ashish\.Net\NumberAppCasino\Blank_Sheet\Blank_Sheet\obj\Debug\Blank_Sheet.csproj.GenerateResource.cache
+E:\Ashish\.Net\NumberAppCasino\Blank_Sheet\Blank_Sheet\obj\Debug\Blank_Sheet.csproj.CoreCompileInputs.cache
+E:\Ashish\.Net\NumberAppCasino\Blank_Sheet\Blank_Sheet\obj\Debug\Blank_Sheet.exe
+E:\Ashish\.Net\NumberAppCasino\Blank_Sheet\Blank_Sheet\obj\Debug\Blank_Sheet.pdb
