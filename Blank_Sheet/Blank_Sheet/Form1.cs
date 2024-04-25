@@ -287,14 +287,21 @@ namespace Blank_Sheet
 						}
                         else
                         {
+                            int lastColumn = values.Length - 1;
+                            string key = values[lastColumn];
                             if (values[0].Equals(string.Empty))
                             {
-								updatedRows.Add(row);
+                                if(Dict.ContainsKey(key))
+                                {
+                                    updatedRows.Add(Dict[key] + "," + values[lastColumn]);
+                                }
+                                else
+                                {
+                                    updatedRows.Add(row);
+                                }
 							}
                             else
                             {
-                                int lastColumn = values.Length - 1;
-                                string key = values[lastColumn];
 								if (Dict.ContainsKey(key))
                                 {
 									updatedRows.Add(values[0] + " | " + Dict[key] + "," + values[lastColumn]);
