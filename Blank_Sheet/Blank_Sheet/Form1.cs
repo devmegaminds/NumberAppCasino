@@ -14,13 +14,16 @@ namespace Blank_Sheet
 {
     public partial class Form1 : Form
     {
-        Dictionary<string, string> Dict = new Dictionary<string, string>();
+        Dictionary<string, string> dataColumn = new Dictionary<string, string>();
+        private string selectedCSVFilePath;
 
         public Form1()
         {
             InitializeComponent();
         }
-        const string Space = " "; // Define a constant for the dash character
+        const string Space = " "; // Define a constant for the Spach character
+
+        #region Createblanksheet
         private void btnBlankSheet_Click_1(object sender, EventArgs e)
         {
             //New Code
@@ -35,18 +38,18 @@ namespace Blank_Sheet
             // Worker method to perform the processing
             worker.DoWork += (senderObj, eventArgs) =>
             {
-                // Create a message to store the CSV content
-                var message = "";
+                // Create a Series to store the CSV content
+                var series = "";
 
                 // Loop through the specified range of values
-                for (int i = 0; i <= 36; i++)
+                for (int outerSeries = 0; outerSeries <= 36; outerSeries++)
                 {
-                    for (int j = 0; j <= 36; j++)
+                    for (int middleSeries = 0; middleSeries <= 36; middleSeries++)
                     {
-                        for (int k = 0; k <= 36; k++)
+                        for (int innerSeries = 0; innerSeries <= 36; innerSeries++)
                         {
                             // Concatenate the values with Space
-                            message += i.ToString() + Space + j.ToString() + Space + k.ToString() + Environment.NewLine;
+                            series += outerSeries.ToString() + Space + middleSeries.ToString() + Space + innerSeries.ToString() + Environment.NewLine;
                         }
                     }
                 }
@@ -62,7 +65,7 @@ namespace Blank_Sheet
                 string filePath = Path.Combine(desktopPath, fileName);
 
                 // Write the message to the file
-                File.WriteAllText(filePath, message);
+                File.WriteAllText(filePath, series);
 
                 // Return the result if needed
                 eventArgs.Result = fileName;
@@ -94,8 +97,10 @@ namespace Blank_Sheet
             // Start the background worker
             worker.RunWorkerAsync();
         }
+        #endregion
 
-        private void btnopenyourdesktop_Click(object sender, EventArgs e)
+        #region OpenyourDesktop
+        private void btnOpenyourDesktop_Click(object sender, EventArgs e)
         {
             // Get the path for the Desktop folder
             string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -103,8 +108,10 @@ namespace Blank_Sheet
             // Open the folder in File Explorer
             System.Diagnostics.Process.Start("explorer.exe", desktopPath);
         }
+        #endregion
 
-        private void btnuploadimagedata_Click(object sender, EventArgs e)
+        #region UploadImageData
+        private void btnUploadImageData_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "CSV Files|*.csv";
@@ -115,9 +122,9 @@ namespace Blank_Sheet
                 var csvData = File.ReadAllLines(openFileDialog.FileName);
 
                 // Convert the CSV data to a list of integers
-                List<int[]> integerList = new List<int[]>();
+                List<int[]> CSVintegerList = new List<int[]>();
 
-                Dict.Clear();
+                dataColumn.Clear();
 
                 foreach (var row in csvData)
                 {
@@ -128,23 +135,24 @@ namespace Blank_Sheet
                     var integers = values.Select(v => string.IsNullOrEmpty(v) ? -1 : int.Parse(v)).ToArray();
 
                     // Add the array of integers to the list
-                    integerList.Add(integers);
+                    CSVintegerList.Add(integers);
                 }
 
-                List<int> AllData = integerList.SelectMany(arr => arr).Where(num => num != -1).ToList();
+                List<int> AllData = CSVintegerList.SelectMany(arr => arr).Where(num => num != -1).ToList();
 
                 // Display the list of integers in a message box
-                var message = "";
-                for (int i = 0; i < AllData.Count() - 3; i++)
+                //var message = "";
+
+                for (int count = 0; count < AllData.Count() - 3; count++)
                 {
-                    var x = AllData[i + 1] + Space + AllData[i + 2] + Space + AllData[i + 3];
-                    if (Dict.ContainsKey(x))
+                    var index = AllData[count + 1] + Space + AllData[count + 2] + Space + AllData[count + 3];
+                    if (dataColumn.ContainsKey(index))
                     {
-                        Dict[x] += "| " + AllData[i];
+                        dataColumn[index] += "| " + AllData[count];
                     }
                     else
                     {
-                        Dict.Add(x, AllData[i].ToString());
+                        dataColumn.Add(index, AllData[count].ToString());
                     }
                 }
 
@@ -153,42 +161,40 @@ namespace Blank_Sheet
                 lbluploadimagedatapath.Text = openFileDialog.FileName;
 
             }
+
         }
+        #endregion
 
-        private string SelectedCSVFilePath;
-
-        private void btnuploaddatacsvfile_Click(object sender, EventArgs e)
+        #region UploadDataCSVFile
+        private void btnUploadDataCSVFile_Click_1(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "CSV Files|*.csv";
             openFileDialog.Title = "Select a CSV File";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                SelectedCSVFilePath = openFileDialog.FileName; // Store the selected file path in the class-level variable
-                var csvData = File.ReadAllLines(SelectedCSVFilePath);
-   
+                selectedCSVFilePath = openFileDialog.FileName; // Store the selected file path in the class-level variable
+                var csvData = File.ReadAllLines(selectedCSVFilePath);
+
+                MessageBox.Show("CSV File Uploaded successfully.");
+
+                // Set the label text to the path of the CSV file
+                lbluploaddatacsvfilepath.Text = openFileDialog.FileName;
             }
-            MessageBox.Show("CSV File Uploaded successfully.");
-            // Set the label text to the path of the CSV file
-            lbluploaddatacsvfilepath.Text = openFileDialog.FileName;
-        }        
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            // Display the message when the icon is clicked
-            MessageBox.Show("This file must be a which you have created in step-1");
         }
+        #endregion
 
+        #region Process
         private void btnProcess_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(SelectedCSVFilePath))
+            if (string.IsNullOrEmpty(selectedCSVFilePath))
             {
-                MessageBox.Show("Please select a CSV file first.");
+                MessageBox.Show("Please select a both CSV file first.");
                 return;
             }
 
             // Show the progress bar
-            progressBar1.Visible = true;
+            step2Progressbar.Visible = true;
 
             // Disable the button to prevent multiple clicks
             btnProcess.Enabled = false;
@@ -200,24 +206,24 @@ namespace Blank_Sheet
             worker.DoWork += (senderObj, eventArgs) =>
             {
                 // Get the first worksheet in the CSV file
-                var TargetcsvData = File.ReadAllLines(SelectedCSVFilePath);
+                var targetCSVData = File.ReadAllLines(selectedCSVFilePath);
                 var updatedRows = new List<string>();
 
-                foreach (var row in TargetcsvData)
+                foreach (var row in targetCSVData)
                 {
                     var values = row.Split(',');
                     var firstValue = values.FirstOrDefault();
                     bool isCommaPresent = row.Contains(',');
 
-                    if (Dict.ContainsKey(firstValue))
+                    if (dataColumn.ContainsKey(firstValue))
                     {
                         if (isCommaPresent)
                         {
-                            updatedRows.Add(values[1] + " | " + Dict[firstValue] + "," + firstValue);
+                            updatedRows.Add(values[1] + " | " + dataColumn[firstValue] + "," + firstValue);
                         }
                         else
                         {
-                            updatedRows.Add(Dict[firstValue] + "," + firstValue);
+                            updatedRows.Add(dataColumn[firstValue] + "," + firstValue);
                         }
                     }
                     else
@@ -232,9 +238,9 @@ namespace Blank_Sheet
                             string key = values[lastColumn];
                             if (values[0].Equals(string.Empty))
                             {
-                                if (Dict.ContainsKey(key))
+                                if (dataColumn.ContainsKey(key))
                                 {
-                                    updatedRows.Add(Dict[key] + "," + values[lastColumn]);
+                                    updatedRows.Add(dataColumn[key] + "," + values[lastColumn]);
                                 }
                                 else
                                 {
@@ -243,9 +249,9 @@ namespace Blank_Sheet
                             }
                             else
                             {
-                                if (Dict.ContainsKey(key))
+                                if (dataColumn.ContainsKey(key))
                                 {
-                                    updatedRows.Add(values[0] + " | " + Dict[key] + "," + values[lastColumn]);
+                                    updatedRows.Add(values[0] + " | " + dataColumn[key] + "," + values[lastColumn]);
                                 }
                                 else
                                 {
@@ -258,14 +264,14 @@ namespace Blank_Sheet
                     }
                 }
 
-                File.WriteAllLines(SelectedCSVFilePath, updatedRows);
+                File.WriteAllLines(selectedCSVFilePath, updatedRows);
             };
 
             // Worker completed event to handle completion
             worker.RunWorkerCompleted += (senderObj, eventArgs) =>
             {
                 // Hide the progress bar
-                progressBar1.Visible = false;
+                step2Progressbar.Visible = false;
 
                 // Enable the button
                 btnProcess.Enabled = true;
@@ -277,12 +283,21 @@ namespace Blank_Sheet
                 MessageBox.Show("Opening CSV file. Please wait...");
 
                 // Open the processed file
-                Process.Start(SelectedCSVFilePath);
+                Process.Start(selectedCSVFilePath);
             };
 
             // Start the background worker
             worker.RunWorkerAsync();
         }
+        #endregion
+
+        #region ImageInformation
+        private void imgInformation_Click(object sender, EventArgs e)
+        {
+            // Display the message when the icon is clicked
+            MessageBox.Show("This file must be a which you have created in step-1");
+        } 
+        #endregion
     }
 }
 
