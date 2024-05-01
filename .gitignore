@@ -1,6 +1,7 @@
 # From .NET desktop you can use the command: `dotnet new gitignore` to generate a customizable .gitignore fil
 
 *.exe
+*.pdb
 *.swp
 *.*~
 project.lock.json
