@@ -74,7 +74,7 @@ namespace Blank_Sheet
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Step 1 Create a balnk Sheet";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+
             // 
             // step1progressBar
             // 
