@@ -171,9 +171,15 @@ namespace Blank_Sheet
             MessageBox.Show("CSV File Uploaded successfully.");
             // Set the label text to the path of the CSV file
             lbluploaddatacsvfilepath.Text = openFileDialog.FileName;
+        }        
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            // Display the message when the icon is clicked
+            MessageBox.Show("This file must be a which you have created in step-1");
         }
 
-        private void btnprocess_Click(object sender, EventArgs e)
+        private void btnProcess_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(SelectedCSVFilePath))
             {
@@ -185,7 +191,7 @@ namespace Blank_Sheet
             progressBar1.Visible = true;
 
             // Disable the button to prevent multiple clicks
-            btnprocess.Enabled = false;
+            btnProcess.Enabled = false;
 
             // Create a BackgroundWorker instance
             BackgroundWorker worker = new BackgroundWorker();
@@ -218,8 +224,8 @@ namespace Blank_Sheet
                     {
                         if (!firstValue.Equals(string.Empty) && values.Length == 1)
                         {
-							updatedRows.Add("" + "," + row); // Keep the original row if key not found in dictionary
-						}
+                            updatedRows.Add("" + "," + row); // Keep the original row if key not found in dictionary
+                        }
                         else
                         {
                             int lastColumn = values.Length - 1;
@@ -262,7 +268,7 @@ namespace Blank_Sheet
                 progressBar1.Visible = false;
 
                 // Enable the button
-                btnprocess.Enabled = true;
+                btnProcess.Enabled = true;
 
                 // Show completion message
                 MessageBox.Show("CSV file updated successfully.");
@@ -277,13 +283,6 @@ namespace Blank_Sheet
             // Start the background worker
             worker.RunWorkerAsync();
         }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            // Display the message when the icon is clicked
-            MessageBox.Show("This file must be a which you have created in step-1");
-        }
-
     }
 }
 

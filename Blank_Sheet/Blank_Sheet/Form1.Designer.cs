@@ -41,7 +41,7 @@ namespace Blank_Sheet
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.lbluploaddatacsvfilepath = new System.Windows.Forms.Label();
             this.lbluploadimagedatapath = new System.Windows.Forms.Label();
-            this.btnprocess = new System.Windows.Forms.Button();
+            this.btnProcess = new System.Windows.Forms.Button();
             this.btnuploaddatacsvfile = new System.Windows.Forms.Button();
             this.btnuploadimagedata = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
@@ -74,7 +74,6 @@ namespace Blank_Sheet
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Step 1 Create a balnk Sheet";
-            
             // 
             // step1progressBar
             // 
@@ -119,7 +118,7 @@ namespace Blank_Sheet
             this.groupBox2.Controls.Add(this.progressBar1);
             this.groupBox2.Controls.Add(this.lbluploaddatacsvfilepath);
             this.groupBox2.Controls.Add(this.lbluploadimagedatapath);
-            this.groupBox2.Controls.Add(this.btnprocess);
+            this.groupBox2.Controls.Add(this.btnProcess);
             this.groupBox2.Controls.Add(this.btnuploaddatacsvfile);
             this.groupBox2.Controls.Add(this.btnuploadimagedata);
             this.groupBox2.Location = new System.Drawing.Point(26, 160);
@@ -165,15 +164,15 @@ namespace Blank_Sheet
             this.lbluploadimagedatapath.Size = new System.Drawing.Size(0, 13);
             this.lbluploadimagedatapath.TabIndex = 5;
             // 
-            // btnprocess
+            // btnProcess
             // 
-            this.btnprocess.Location = new System.Drawing.Point(438, 174);
-            this.btnprocess.Name = "btnprocess";
-            this.btnprocess.Size = new System.Drawing.Size(119, 32);
-            this.btnprocess.TabIndex = 4;
-            this.btnprocess.Text = "Process";
-            this.btnprocess.UseVisualStyleBackColor = true;
-            this.btnprocess.Click += new System.EventHandler(this.btnprocess_Click);
+            this.btnProcess.Location = new System.Drawing.Point(438, 174);
+            this.btnProcess.Name = "btnProcess";
+            this.btnProcess.Size = new System.Drawing.Size(119, 32);
+            this.btnProcess.TabIndex = 4;
+            this.btnProcess.Text = "Process";
+            this.btnProcess.UseVisualStyleBackColor = true;
+            this.btnProcess.Click += new System.EventHandler(this.btnProcess_Click);
             // 
             // btnuploaddatacsvfile
             // 
@@ -223,7 +222,7 @@ namespace Blank_Sheet
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btnuploaddatacsvfile;
         private System.Windows.Forms.Button btnuploadimagedata;
-        private System.Windows.Forms.Button btnprocess;
+        private System.Windows.Forms.Button btnProcess;
         private System.Windows.Forms.Label lbluploadimagedatapath;
         private System.Windows.Forms.Label lbluploaddatacsvfilepath;
         private System.Windows.Forms.ProgressBar progressBar1;
